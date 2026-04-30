@@ -3,232 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Growth Hub — Login</title>
-  <link rel="manifest" href="/Coach4U-Growth/manifest.json">
+  <title>The Growth Hub</title>
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Growth Hub">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="images/logo.svg">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="js/supabase.js"></script>
-  <script src="js/auth.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Aptos', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background-color: #ffffff;
-      color: #333;
+      color: #003366;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .container {
-      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-
-    .login-box {
-      max-width: 400px;
-      width: 100%;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 28px;
-      color: #003366;
-      margin-bottom: 12px;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: #666;
-      text-align: center;
-      margin-bottom: 30px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    input[type="email"] {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-family: inherit;
-      transition: border-color 0.3s;
-    }
-
-    input[type="email"]:focus {
-      outline: none;
-      border-color: #003366;
-      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
-    }
-
-    button {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 16px;
-      font-weight: 600;
-      background-color: #003366;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #002244;
-    }
-
-    button:active {
-      background-color: #001a33;
-    }
-
-    button:disabled {
-      background-color: #999;
-      cursor: not-allowed;
-    }
-
-    .success-message {
-      display: none;
-      background-color: #f0f9f7;
-      border: 1px solid #a3d5ce;
-      border-radius: 4px;
-      padding: 16px;
-      text-align: center;
-      color: #1a5f52;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .success-message.show {
-      display: block;
-    }
-
-    .form-section {
-      display: block;
-    }
-
-    .form-section.hidden {
-      display: none;
-    }
-
-    footer {
-      background-color: #f5f5f5;
-      padding: 20px;
-      text-align: center;
-      color: #999;
+      margin: 0;
       font-size: 14px;
-      border-top: 1px solid #eee;
-    }
-
-    footer a {
-      color: #003366;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="login-box">
-      <div class="logo">The Growth Hub</div>
+  <div>Loading…</div>
 
-      <h1>Welcome to your Growth Hub</h1>
-      <p class="subtitle">Enter your email to receive a secure login link</p>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-      <form id="loginForm" class="form-section">
-        <div class="form-group">
-          <input
-            type="email"
-            id="email"
-            placeholder="your@email.com"
-            required
-            autocomplete="email"
-          >
-        </div>
-        <button type="submit">Send me a login link</button>
-      </form>
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      <div class="success-message" id="successMessage">
-        ✓ Check your email — your login link is on its way.
-      </div>
-    </div>
-  </div>
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+    } else {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('membership_status')
+        .eq('id', session.user.id)
+        .single();
 
-  <footer>
-    Strengths-Based Coaching and Counselling | <a href="https://coach4u.com.au" target="_blank">coach4u.com.au</a>
-  </footer>
+      if (profile?.membership_status === 'active') {
+        window.location.href = 'growth/index.html';
+      } else {
+        window.location.href = 'inactive.html';
+      }
+    }
+  </script>
 
   <script>
-    // Handle login form submission
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault()
-
-      const email = document.getElementById('email').value
-      const button = e.target.querySelector('button')
-
-      // Disable button while processing
-      button.disabled = true
-      button.textContent = 'Sending...'
-
-      try {
-        await window.signIn(email)
-
-        // Hide form and show success message
-        document.getElementById('loginForm').classList.add('hidden')
-        document.getElementById('successMessage').classList.add('show')
-      } catch (err) {
-        // Re-enable button if there's an error
-        button.disabled = false
-        button.textContent = 'Send me a login link'
-        console.error('Error:', err)
-      }
-    })
-
-    // If a session already exists, jump straight into the Growth Hub
-    window.getUser().then(user => {
-      if (user) {
-        const pathname = window.location.pathname
-        const match = pathname.match(/^(.*?Coach4U-Growth)\//i)
-        const base = match ? match[1] : ''
-        window.location.href = base + '/growth/index.html'
-      }
-    })
-
-    // Register service worker for PWA
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/Coach4U-Growth/sw.js')
-        .then(reg => console.log('Service Worker registered'))
-        .catch(err => console.log('Service Worker registration failed:', err));
+      navigator.serviceWorker.register('sw.js');
     }
   </script>
 </body>

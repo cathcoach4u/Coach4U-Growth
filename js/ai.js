@@ -1,8 +1,16 @@
 // AI helpers for the Growth Hub
 // Calls a Supabase Edge Function which handles the Anthropic API integration.
-// Note: SUPABASE_ANON_KEY is defined in supabase.js
+// Reads SUPABASE_URL / SUPABASE_ANON_KEY from window globals set inline in the host page.
 
-const EDGE_FUNCTION_URL = 'https://uoixetfvboevjxlkfyqy.supabase.co/functions/v1/ai-proxy'
+function edgeFunctionUrl() {
+  const base = window.SUPABASE_URL || 'https://eekefsuaefgpqmjdyniy.supabase.co';
+  return `${base}/functions/v1/ai-proxy`;
+}
+
+function authHeader() {
+  const key = window.SUPABASE_ANON_KEY || '';
+  return `Bearer ${key}`;
+}
 
 // Demo response (fallback when the Edge Function is unavailable)
 function getDemoAIResponse(message, hub, onChunk) {
@@ -41,11 +49,11 @@ This is demo mode — the live AI coach connects via the Supabase Edge Function.
  */
 window.askAI = async function(message, hub, module, context, onChunk) {
   try {
-    const response = await fetch(EDGE_FUNCTION_URL, {
+    const response = await fetch(edgeFunctionUrl(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        'Authorization': authHeader()
       },
       body: JSON.stringify({
         message: message,
@@ -112,11 +120,11 @@ window.askAI = async function(message, hub, module, context, onChunk) {
  */
 window.askAISimple = async function(message, hub, module, context) {
   try {
-    const response = await fetch(EDGE_FUNCTION_URL, {
+    const response = await fetch(edgeFunctionUrl(), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        'Authorization': authHeader()
       },
       body: JSON.stringify({
         message: message,
