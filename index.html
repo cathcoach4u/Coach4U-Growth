@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Growth Hub — Login</title>
-  <link rel="manifest" href="/external-Coach4u-app/manifest.json">
+  <link rel="manifest" href="/Coach4U-Growth/manifest.json">
   <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -218,7 +218,7 @@
     window.getUser().then(user => {
       if (user) {
         const pathname = window.location.pathname
-        const match = pathname.match(/^(.*?external-Coach4u-app)\//i)
+        const match = pathname.match(/^(.*?Coach4U-Growth)\//i)
         const base = match ? match[1] : ''
         window.location.href = base + '/growth/index.html'
       }
@@ -226,7 +226,7 @@
 
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/external-Coach4u-app/sw.js')
+      navigator.serviceWorker.register('/Coach4U-Growth/sw.js')
         .then(reg => console.log('Service Worker registered'))
         .catch(err => console.log('Service Worker registration failed:', err));
     }

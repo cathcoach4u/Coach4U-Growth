@@ -3,29 +3,29 @@
    Caching strategy: Static assets (cache-first), Pages (network-first), API (network-first)
    ═══════════════════════════════════════════════════════════════ */
 
-const CACHE_VERSION = 'coach4u-growth-v0.6.0';
+const CACHE_VERSION = 'coach4u-growth-v0.6.1';
 const STATIC_CACHE = CACHE_VERSION + '-static';
 const PAGES_CACHE = CACHE_VERSION + '-pages';
 const API_CACHE = CACHE_VERSION + '-api';
 
 const STATIC_ASSETS = [
-  '/external-Coach4u-app/',
-  '/external-Coach4u-app/index.html',
-  '/external-Coach4u-app/offline.html',
-  '/external-Coach4u-app/manifest.json',
-  '/external-Coach4u-app/css/style.css',
-  '/external-Coach4u-app/js/auth.js',
-  '/external-Coach4u-app/js/supabase.js',
-  '/external-Coach4u-app/js/ai.js',
-  '/external-Coach4u-app/growth/index.html',
-  '/external-Coach4u-app/growth/css/style.css',
-  '/external-Coach4u-app/growth/js/app.js',
-  '/external-Coach4u-app/growth/js/ai.js',
-  '/external-Coach4u-app/growth/js/strategy.js',
-  '/external-Coach4u-app/growth/js/quarterly.js',
-  '/external-Coach4u-app/growth/js/campaigns.js',
-  '/external-Coach4u-app/growth/js/content.js',
-  '/external-Coach4u-app/growth/js/metrics.js',
+  '/Coach4U-Growth/',
+  '/Coach4U-Growth/index.html',
+  '/Coach4U-Growth/offline.html',
+  '/Coach4U-Growth/manifest.json',
+  '/Coach4U-Growth/css/style.css',
+  '/Coach4U-Growth/js/auth.js',
+  '/Coach4U-Growth/js/supabase.js',
+  '/Coach4U-Growth/js/ai.js',
+  '/Coach4U-Growth/growth/index.html',
+  '/Coach4U-Growth/growth/css/style.css',
+  '/Coach4U-Growth/growth/js/app.js',
+  '/Coach4U-Growth/growth/js/ai.js',
+  '/Coach4U-Growth/growth/js/strategy.js',
+  '/Coach4U-Growth/growth/js/quarterly.js',
+  '/Coach4U-Growth/growth/js/campaigns.js',
+  '/Coach4U-Growth/growth/js/content.js',
+  '/Coach4U-Growth/growth/js/metrics.js',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
   'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
 ];
@@ -62,7 +62,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   // Skip cross-origin requests and non-GET
-  if (!url.pathname.includes('/external-Coach4u-app/') && url.origin !== location.origin) {
+  if (!url.pathname.includes('/Coach4U-Growth/') && url.origin !== location.origin) {
     return;
   }
 
@@ -108,7 +108,7 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => {
           return caches.match(request).then((cached) => {
-            return cached || caches.match('/external-Coach4u-app/offline.html');
+            return cached || caches.match('/Coach4U-Growth/offline.html');
           });
         })
     );
@@ -119,7 +119,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(request).then((cached) => {
       return cached || fetch(request).then((response) => {
-        if (response.ok && request.url.includes('/external-Coach4u-app/')) {
+        if (response.ok && request.url.includes('/Coach4U-Growth/')) {
           caches.open(STATIC_CACHE).then((cache) => {
             cache.put(request, response.clone());
           });

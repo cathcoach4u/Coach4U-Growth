@@ -3,7 +3,7 @@
 A focused PWA for growth-marketing planning: strategy, quarterly priorities,
 campaigns, content, metrics and personas — backed by Supabase magic-link auth.
 
-Hosted on GitHub Pages at `/external-Coach4u-app/`.
+Hosted on GitHub Pages at https://cathcoach4u.github.io/Coach4U-Growth/.
 
 ## Structure
 
