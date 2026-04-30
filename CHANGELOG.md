@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.6.0 — 2026-04-30
+
+### Cleanup: growth-only repo
+- Removed `business/` module entirely (HTML, CSS, JS)
+- Removed `Prototypes-coach4Uexternal/` (Coach4U-EOS, Growth Hub, People-Hub prototypes)
+- Removed unused root `js/app.js` and `js/app-business.js`
+- Login (`index.html`) now redirects authenticated users straight to `/growth/index.html` instead of the missing `dashboard.html`
+- `js/auth.js` redirects (sign-in, sign-out, magic-link callback, auth state change) updated to use `growth/index.html` and `index.html`; removed unused `getUserProfile` helper
+- Trimmed `js/supabase.js` to just the client init (removed unused `getUserModules` and `getOrganisation`)
+- Trimmed `js/ai.js` to a growth-focused demo fallback (removed strategic / operations / team / leadership / couples / family / community etc. prompt templates)
+- Service worker `sw.js` now precaches only Growth Hub assets; cache version bumped to `coach4u-growth-v0.6.0`; added Chart.js CDN to precache
+- `manifest.json` renamed to "The Growth Hub — Coach4U" with a growth-specific description
+- `offline.html` and `404.html` re-pointed to the Growth Hub; 404 secondary CTA goes to `/growth/index.html` instead of `/dashboard.html`
+- `index.html` rebranded to "The Growth Hub — Login"
+
 ## v0.5.4 — 2026-04-29
 
 ### Design system alignment (v1.3)

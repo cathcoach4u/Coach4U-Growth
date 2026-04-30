@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coach4U — Login</title>
+  <title>The Growth Hub — Login</title>
   <link rel="manifest" href="/external-Coach4u-app/manifest.json">
   <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Coach4U">
+  <meta name="apple-mobile-web-app-title" content="Growth Hub">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="images/logo.svg">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth.js"></script>
@@ -161,9 +160,9 @@
 <body>
   <div class="container">
     <div class="login-box">
-      <div class="logo">Coach4U</div>
+      <div class="logo">The Growth Hub</div>
 
-      <h1>Welcome to your coaching portal</h1>
+      <h1>Welcome to your Growth Hub</h1>
       <p class="subtitle">Enter your email to receive a secure login link</p>
 
       <form id="loginForm" class="form-section">
@@ -215,11 +214,13 @@
       }
     })
 
-    // Check if user is already logged in
-    // If so, auth.js will redirect to dashboard.html
+    // If a session already exists, jump straight into the Growth Hub
     window.getUser().then(user => {
       if (user) {
-        window.location.href = '/dashboard.html'
+        const pathname = window.location.pathname
+        const match = pathname.match(/^(.*?external-Coach4u-app)\//i)
+        const base = match ? match[1] : ''
+        window.location.href = base + '/growth/index.html'
       }
     })
 

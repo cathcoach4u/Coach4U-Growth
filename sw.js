@@ -3,7 +3,7 @@
    Caching strategy: Static assets (cache-first), Pages (network-first), API (network-first)
    ═══════════════════════════════════════════════════════════════ */
 
-const CACHE_VERSION = 'coach4u-v0.5.3';
+const CACHE_VERSION = 'coach4u-growth-v0.6.0';
 const STATIC_CACHE = CACHE_VERSION + '-static';
 const PAGES_CACHE = CACHE_VERSION + '-pages';
 const API_CACHE = CACHE_VERSION + '-api';
@@ -11,21 +11,23 @@ const API_CACHE = CACHE_VERSION + '-api';
 const STATIC_ASSETS = [
   '/external-Coach4u-app/',
   '/external-Coach4u-app/index.html',
-  '/external-Coach4u-app/dashboard.html',
   '/external-Coach4u-app/offline.html',
   '/external-Coach4u-app/manifest.json',
   '/external-Coach4u-app/css/style.css',
-  '/external-Coach4u-app/js/app.js',
   '/external-Coach4u-app/js/auth.js',
   '/external-Coach4u-app/js/supabase.js',
   '/external-Coach4u-app/js/ai.js',
-  '/external-Coach4u-app/business/index.html',
-  '/external-Coach4u-app/business/js/app.js',
   '/external-Coach4u-app/growth/index.html',
   '/external-Coach4u-app/growth/css/style.css',
   '/external-Coach4u-app/growth/js/app.js',
   '/external-Coach4u-app/growth/js/ai.js',
+  '/external-Coach4u-app/growth/js/strategy.js',
+  '/external-Coach4u-app/growth/js/quarterly.js',
+  '/external-Coach4u-app/growth/js/campaigns.js',
+  '/external-Coach4u-app/growth/js/content.js',
+  '/external-Coach4u-app/growth/js/metrics.js',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
+  'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
 ];
 
 // Install event: cache static assets
