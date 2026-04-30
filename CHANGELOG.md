@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.7.0 — 2026-04-30
+
+### Align to Coach4U App Setup Guide (source-of-truth)
+- **Supabase project switched** to `eekefsuaefgpqmjdyniy` with the new publishable anon key (`sb_publishable_...`)
+- **Auth flow switched from magic-link to email + password** (`supabase.auth.signInWithPassword`)
+- New pages:
+  - `login.html` — dedicated email + password sign-in (was the old root `index.html`)
+  - `forgot-password.html` — password-reset email; redirect built from `window.location.href`
+  - `reset-password.html` — sets a new password via `supabase.auth.updateUser`
+  - `inactive.html` — landing for users whose `users.membership_status` is not `'active'`
+- Root `index.html` is now an **auth gateway**: checks session, queries `users.membership_status`, then routes to `growth/index.html`, `inactive.html`, or `login.html`
+- **Inlined Supabase init** (`<script type="module">` + ESM import) in every HTML page; deleted `js/supabase.js` and `js/auth.js`
+- `growth/index.html` now does its own membership gate inline; exposes `window.supabaseClient`, `window.SUPABASE_URL`, `window.SUPABASE_ANON_KEY` and `window.signOut` for the existing growth modules
+- `js/ai.js` reads the Supabase URL + anon key from `window` globals set by the host page; default URL points at the new project
+- **Simplified `sw.js`** to a minimal relative-path cache-first worker; cache version bumped to `coach4u-growth-v0.7.0`
+- **Aligned `manifest.json`**: relative paths, scope `./`, start_url `index.html`, theme + background `#003366`
+- 404 page CTAs updated to `login.html` and `/Coach4U-Growth/`
+- README + CLAUDE.md rewritten to reflect the source-of-truth contract
+
 ## v0.6.1 — 2026-04-30
 
 ### Re-host under `/Coach4U-Growth/` base path

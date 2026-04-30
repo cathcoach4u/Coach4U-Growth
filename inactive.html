@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Inactive — The Growth Hub</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#003366">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Aptos', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .box { max-width: 480px; width: 100%; text-align: center; }
+    .logo { font-size: 28px; font-weight: 700; color: #003366; margin-bottom: 30px; }
+    h1 { font-size: 24px; color: #003366; margin-bottom: 12px; font-weight: 600; }
+    p { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 16px; }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      background-color: transparent;
+      color: #003366;
+      border: 2px solid #003366;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      margin-top: 12px;
+    }
+    .btn:hover { background-color: #003366; color: white; }
+    a.support { color: #0D9488; text-decoration: none; }
+    a.support:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <div class="logo">The Growth Hub</div>
+      <h1>Your membership is not active</h1>
+      <p>Your sign-in worked, but the Growth Hub isn't activated on your account yet.</p>
+      <p>Please contact us at <a class="support" href="mailto:hello@coach4u.com.au">hello@coach4u.com.au</a> to activate your access.</p>
+      <button id="signout-btn" class="btn">Sign out</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.getElementById('signout-btn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

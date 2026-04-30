@@ -1,52 +1,14 @@
 {
-  "name": "The Growth Hub — Coach4U",
+  "name": "The Growth Hub",
   "short_name": "Growth Hub",
   "description": "Plan strategy, quarterly priorities, campaigns, content and metrics for growth marketing.",
-  "start_url": "/Coach4U-Growth/",
-  "scope": "/Coach4U-Growth/",
+  "start_url": "index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-or-landscape",
-  "background_color": "#ffffff",
-  "theme_color": "#1B3664",
+  "background_color": "#003366",
+  "theme_color": "#003366",
   "icons": [
-    {
-      "src": "/Coach4U-Growth/assets/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/Coach4U-Growth/assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/Coach4U-Growth/assets/icon-maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/Coach4U-Growth/assets/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "categories": ["productivity", "education"],
-  "screenshots": [
-    {
-      "src": "/Coach4U-Growth/assets/screenshot-1.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/Coach4U-Growth/assets/screenshot-2.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "images/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

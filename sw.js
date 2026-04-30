@@ -1,140 +1,51 @@
-/* ═══════════════════════════════════════════════════════════════
-   Service Worker for Coach4U PWA
-   Caching strategy: Static assets (cache-first), Pages (network-first), API (network-first)
-   ═══════════════════════════════════════════════════════════════ */
-
-const CACHE_VERSION = 'coach4u-growth-v0.6.1';
-const STATIC_CACHE = CACHE_VERSION + '-static';
-const PAGES_CACHE = CACHE_VERSION + '-pages';
-const API_CACHE = CACHE_VERSION + '-api';
-
-const STATIC_ASSETS = [
-  '/Coach4U-Growth/',
-  '/Coach4U-Growth/index.html',
-  '/Coach4U-Growth/offline.html',
-  '/Coach4U-Growth/manifest.json',
-  '/Coach4U-Growth/css/style.css',
-  '/Coach4U-Growth/js/auth.js',
-  '/Coach4U-Growth/js/supabase.js',
-  '/Coach4U-Growth/js/ai.js',
-  '/Coach4U-Growth/growth/index.html',
-  '/Coach4U-Growth/growth/css/style.css',
-  '/Coach4U-Growth/growth/js/app.js',
-  '/Coach4U-Growth/growth/js/ai.js',
-  '/Coach4U-Growth/growth/js/strategy.js',
-  '/Coach4U-Growth/growth/js/quarterly.js',
-  '/Coach4U-Growth/growth/js/campaigns.js',
-  '/Coach4U-Growth/growth/js/content.js',
-  '/Coach4U-Growth/growth/js/metrics.js',
-  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js',
-  'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
+const CACHE = 'coach4u-growth-v0.7.0';
+const ASSETS = [
+  './',
+  'index.html',
+  'login.html',
+  'forgot-password.html',
+  'reset-password.html',
+  'inactive.html',
+  'offline.html',
+  'manifest.json',
+  'favicon.svg',
+  'images/logo.svg',
+  'css/style.css',
+  'js/ai.js',
+  'growth/index.html',
+  'growth/css/style.css',
+  'growth/js/app.js',
+  'growth/js/strategy.js',
+  'growth/js/quarterly.js',
+  'growth/js/campaigns.js',
+  'growth/js/content.js',
+  'growth/js/metrics.js',
+  'growth/js/ai.js',
 ];
 
-// Install event: cache static assets
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch(() => {
-        console.log('Some static assets could not be cached');
-      });
-    }).then(() => self.skipWaiting())
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE).then((c) => c.addAll(ASSETS).catch(() => {})).then(() => self.skipWaiting())
   );
 });
 
-// Activate event: clean up old caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheName.startsWith(CACHE_VERSION)) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((names) =>
+      Promise.all(names.filter((n) => n !== CACHE).map((n) => caches.delete(n)))
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch event: implement caching strategies
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Skip cross-origin requests and non-GET
-  if (!url.pathname.includes('/Coach4U-Growth/') && url.origin !== location.origin) {
-    return;
-  }
-
-  if (request.method !== 'GET') {
-    return;
-  }
-
-  // API requests: network-first with fallback to cache
-  if (url.pathname.includes('/api/')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            caches.open(API_CACHE).then((cache) => {
-              cache.put(request, response.clone());
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request).then((cached) => {
-            return cached || new Response(
-              JSON.stringify({ error: 'Offline', fallback: true }),
-              { headers: { 'Content-Type': 'application/json' } }
-            );
-          });
-        })
-    );
-    return;
-  }
-
-  // HTML pages: network-first with fallback to cache
-  if (request.headers.get('accept')?.includes('text/html')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            caches.open(PAGES_CACHE).then((cache) => {
-              cache.put(request, response.clone());
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request).then((cached) => {
-            return cached || caches.match('/Coach4U-Growth/offline.html');
-          });
-        })
-    );
-    return;
-  }
-
-  // Static assets (JS, CSS, images): cache-first with fallback to network
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      return cached || fetch(request).then((response) => {
-        if (response.ok && request.url.includes('/Coach4U-Growth/')) {
-          caches.open(STATIC_CACHE).then((cache) => {
-            cache.put(request, response.clone());
-          });
-        }
-        return response;
-      }).catch(() => {
-        if (request.destination === 'image') {
-          return new Response(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">'
-            + '<rect fill="#f0f0f0" width="100" height="100"/></svg>',
-            { headers: { 'Content-Type': 'image/svg+xml' } }
-          );
-        }
-        return new Response('Resource unavailable offline', { status: 503 });
-      });
-    })
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then((cached) =>
+      cached || fetch(e.request).catch(() =>
+        e.request.headers.get('accept')?.includes('text/html')
+          ? caches.match('offline.html')
+          : new Response('Resource unavailable offline', { status: 503 })
+      )
+    )
   );
 });
