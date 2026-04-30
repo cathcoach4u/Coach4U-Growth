@@ -8,7 +8,7 @@
 
 ## Project Overview
 - The Growth Hub — a focused growth-marketing PWA (strategy, quarterly priorities, campaigns, content, metrics, personas, AI assistant, integrations)
-- Hosted on GitHub Pages at `/external-Coach4u-app/`
+- Hosted on GitHub Pages at https://cathcoach4u.github.io/Coach4U-Growth/ (project pages base path `/Coach4U-Growth/`)
 - Uses magic link (OTP) sign-in via Supabase
 - Login lands directly in `/growth/index.html` — there is no multi-module dashboard
 
@@ -34,9 +34,13 @@
 - `sw.js`, `manifest.json`, `offline.html`, `404.html` — PWA shell
 
 ## Current Version
-v0.6.0
+v0.6.1
 
-## Recent Changes (v0.6.0)
+## Recent Changes (v0.6.1)
+- Repointed all hardcoded `/external-Coach4u-app/` paths to `/Coach4U-Growth/` so the PWA deploys at https://cathcoach4u.github.io/Coach4U-Growth/
+- Bumped service worker cache to `coach4u-growth-v0.6.1`
+
+## Previous Changes (v0.6.0)
 - Cleaned the repo down to just the Growth Hub
 - Removed `business/` module, `Prototypes-coach4Uexternal/`, and unused root JS (`app.js`, `app-business.js`)
 - Login + auth redirects now go directly to `/growth/index.html` (no dashboard step)

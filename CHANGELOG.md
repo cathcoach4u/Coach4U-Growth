@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.6.1 — 2026-04-30
+
+### Re-host under `/Coach4U-Growth/` base path
+- Repointed every hardcoded `/external-Coach4u-app/` reference to `/Coach4U-Growth/` so the app deploys cleanly at https://cathcoach4u.github.io/Coach4U-Growth/
+- Updated `manifest.json` (start_url, scope, icon and screenshot paths)
+- Updated `sw.js` precache URLs and origin checks; cache version bumped to `coach4u-growth-v0.6.1`
+- Updated `index.html`, `growth/index.html` (manifest links + service worker registration)
+- Updated `js/auth.js` path-detection regex and login-page detection
+- Updated `404.html`, `offline.html`, `README.md`, `CLAUDE.md`
+
 ## v0.6.0 — 2026-04-30
 
 ### Cleanup: growth-only repo
