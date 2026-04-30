@@ -1,7 +1,7 @@
 {
-  "name": "Coach4U - Growth & Coaching Platform",
-  "short_name": "Coach4U",
-  "description": "Your personal coaching hub for business, teams, growth, and personal development",
+  "name": "The Growth Hub — Coach4U",
+  "short_name": "Growth Hub",
+  "description": "Plan strategy, quarterly priorities, campaigns, content and metrics for growth marketing.",
   "start_url": "/external-Coach4u-app/",
   "scope": "/external-Coach4u-app/",
   "display": "standalone",

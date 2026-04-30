@@ -2,7 +2,8 @@
 // Requires window.supabaseClient from supabase.js
 
 // ─── Helper: Get proper base URL for redirects ──────────────────────────────────────────
-function getAuthRedirectUrl(page = 'dashboard') {
+// destination: 'app' for the Growth Hub, 'login' for the sign-in page
+function getAuthRedirectUrl(destination = 'app') {
   const pathname = window.location.pathname
   let baseUrl = window.location.origin
 
@@ -14,7 +15,8 @@ function getAuthRedirectUrl(page = 'dashboard') {
     }
   }
 
-  return baseUrl + '/' + page + '.html'
+  const path = destination === 'login' ? '/index.html' : '/growth/index.html'
+  return baseUrl + path
 }
 
 // ─── Handle Magic Link Callback ─────────────────────────────────────────────────────
@@ -40,8 +42,8 @@ function getAuthRedirectUrl(page = 'dashboard') {
       }
 
       if (data.session) {
-        console.log('Session confirmed, redirecting to dashboard...')
-        window.location.href = getAuthRedirectUrl('dashboard')
+        console.log('Session confirmed, redirecting to Growth Hub...')
+        window.location.href = getAuthRedirectUrl('app')
       }
     }
   } catch (err) {
@@ -55,7 +57,7 @@ window.signIn = async function(email) {
     const { error } = await window.supabaseClient.auth.signInWithOtp({
       email: email,
       options: {
-        emailRedirectTo: getAuthRedirectUrl('dashboard')
+        emailRedirectTo: getAuthRedirectUrl('app')
       }
     })
 
@@ -80,7 +82,7 @@ window.signOut = async function() {
       return
     }
 
-    window.location.href = getAuthRedirectUrl('index')
+    window.location.href = getAuthRedirectUrl('login')
   } catch (err) {
     console.error('Sign out error:', err)
   }
@@ -102,7 +104,7 @@ window.requireAuth = async function() {
 
     if (!user) {
       console.warn('No authenticated user found, redirecting to login')
-      window.location.href = getAuthRedirectUrl('index')
+      window.location.href = getAuthRedirectUrl('login')
       return null
     }
 
@@ -110,33 +112,7 @@ window.requireAuth = async function() {
     return user
   } catch (err) {
     console.error('Error checking auth:', err)
-    window.location.href = getAuthRedirectUrl('index')
-  }
-}
-
-window.getUserProfile = async function() {
-  try {
-    const user = await window.getUser()
-
-    if (!user) {
-      return null
-    }
-
-    const { data, error } = await window.supabaseClient
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single()
-
-    if (error) {
-      console.error('Error fetching user profile:', error)
-      return null
-    }
-
-    return data
-  } catch (err) {
-    console.error('Error getting user profile:', err)
-    return null
+    window.location.href = getAuthRedirectUrl('login')
   }
 }
 
@@ -150,9 +126,9 @@ window.supabaseClient.auth.onAuthStateChange((event, session) => {
       || (pathname === '/')
 
     if (isLoginPage) {
-      console.log('User signed in, redirecting to dashboard...')
+      console.log('User signed in, redirecting to Growth Hub...')
       setTimeout(() => {
-        window.location.href = getAuthRedirectUrl('dashboard')
+        window.location.href = getAuthRedirectUrl('app')
       }, 500)
     }
   }
