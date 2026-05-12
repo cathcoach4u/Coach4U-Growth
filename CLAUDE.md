@@ -40,7 +40,7 @@ All auth pages (`login.html`, `forgot-password.html`, `reset-password.html`) use
 - No inline `<style>` blocks
 - No Google Fonts
 - `css/style.css` handles all login styling
-- Post-login redirect: `growth/index.html`
+- Post-login redirect: `index.html`
 
 Required `<head>` structure:
 ```html
@@ -63,9 +63,10 @@ Service worker registration on login page:
 - `login.html` — gold standard email + password sign-in
 - `forgot-password.html` / `reset-password.html` — password reset flow
 - `inactive.html` — membership-not-active landing
-- `growth/index.html` — the Growth Hub application (inlines its own Supabase client + membership gate)
-- `growth/css/style.css` — Growth Hub specific styles
-- `growth/js/app.js`, `strategy.js`, `quarterly.js`, `campaigns.js`, `content.js`, `metrics.js`, `ai.js` — Growth Hub modules
+- `index.html` — the Growth Hub application (inlines its own Supabase client + membership gate)
+- `growth/index.html` — redirect to `index.html` (backward compat)
+- `css/spa.css` — Growth Hub SPA styles
+- `js/app.js`, `strategy.js`, `quarterly.js`, `campaigns.js`, `content.js`, `metrics.js`, `ai-growth.js` — Growth Hub modules
 - `js/ai.js` — `askAI` / `askAISimple` wrappers around the Supabase Edge Function
 - `css/style.css` — shared design tokens (v2.2)
 - `sw.js`, `manifest.json`, `offline.html`, `404.html` — PWA shell
@@ -80,7 +81,15 @@ WHERE LOWER(email) = LOWER('email@here.com');
 ```
 
 ## Current Version
-v0.8.0
+v0.9.0
+
+## Recent Changes (v0.9.0)
+- Moved Growth Hub from `growth/index.html` to root `index.html`
+- Dashboard now accessible at https://cathcoach4u.github.io/yourmarketingcoach/
+- Moved `growth/js/` → `js/`, `growth/css/spa.css` → `css/spa.css`
+- `growth/js/ai.js` renamed to `js/ai-growth.js` to avoid collision with API wrapper
+- `growth/index.html` now redirects to root for backward compat
+- Updated all `login.html` post-auth redirects to `index.html`
 
 ## Recent Changes (v0.8.0)
 - Standardised `login.html`, `forgot-password.html`, `reset-password.html` to gold standard (no Google Fonts, no inline styles, PWA meta)
