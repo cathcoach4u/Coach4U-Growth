@@ -12,13 +12,15 @@
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="apple-touch-icon" href="../images/logo.svg">
   <link rel="stylesheet" href="../css/style.css" />
+  <style>body { opacity: 0; transition: opacity 0.2s ease; }</style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════ HEADER -->
+<!-- ═══════════════════════════════════════════════════════════════ HEADER -->
 <header class="site-header" id="site-header">
   <div class="header-inner">
+    <a href="https://cathcoach4u.github.io/yourcoachingportal/" class="header-back">← Portal</a>
     <div class="brand">
       <img src="../images/logo.svg" alt="Coach4U" style="height:36px;vertical-align:middle;">
       <span class="brand-name">The <span class="brand-accent">Growth</span> Hub</span>
@@ -36,7 +38,7 @@
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════════════ MISSION BANNER -->
+<!-- ═══════════════════════════════════════════════════════════════ MISSION BANNER -->
 <div class="mission-banner" id="mission-banner">
   <div class="mission-banner-inner">
     <div class="mission-col">
@@ -70,10 +72,10 @@
   <button class="mission-expand-btn" id="mission-expand-btn">▼ Dashboard</button>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ MAIN CONTENT -->
+<!-- ═══════════════════════════════════════════════════════════════ MAIN CONTENT -->
 <main class="main-content" id="main-content">
 
-  <!-- ─────────────────────────────── STRATEGY PANEL (Part 1) -->
+  <!-- ─────────────────────────────────────── STRATEGY PANEL (Part 1) -->
   <div class="panel active" id="strategy-panel">
     <div class="panel-header">
       <h1 class="panel-title">Marketing Strategy</h1>
@@ -137,7 +139,7 @@
     </div>
   </div>
 
-  <!-- ─────────────────────────────── Q-PLAN PANEL (Part 2) -->
+  <!-- ─────────────────────────────────────── Q-PLAN PANEL (Part 2) -->
   <div class="panel" id="quarterly-panel">
     <div class="panel-header">
       <h1 class="panel-title">Quarterly Marketing Plan</h1>
@@ -156,7 +158,7 @@
     <div id="qplan-list"></div>
   </div>
 
-  <!-- ─────────────────────────────── CAMPAIGNS PANEL (Part 3) -->
+  <!-- ─────────────────────────────────────── CAMPAIGNS PANEL (Part 3) -->
   <div class="panel" id="campaigns-panel">
     <div class="panel-header">
       <h1 class="panel-title">Campaign Tracker</h1>
@@ -190,7 +192,7 @@
     </div>
   </div>
 
-  <!-- ─────────────────────────────── CONTENT PANEL (Part 4) -->
+  <!-- ─────────────────────────────────────── CONTENT PANEL (Part 4) -->
   <div class="panel" id="content-panel">
     <div class="panel-header">
       <h1 class="panel-title">Content Calendar</h1>
@@ -240,7 +242,7 @@
     <div id="content-list-view" style="display:none;"></div>
   </div>
 
-  <!-- ─────────────────────────────── METRICS PANEL (Part 5) -->
+  <!-- ─────────────────────────────────────── METRICS PANEL (Part 5) -->
   <div class="panel" id="metrics-panel">
     <div class="panel-header">
       <h1 class="panel-title">Marketing Metrics Dashboard</h1>
@@ -294,10 +296,10 @@
     </div>
   </div>
 
-  <!-- ─────────────────────────────── PERSONAS PANEL (Part 6) -->
+  <!-- ─────────────────────────────────────── PERSONAS PANEL (Part 6) -->
   <div class="panel" id="personas-panel">
     <div class="panel-header">
-      <h1 class="panel-title">Audience & Personas</h1>
+      <h1 class="panel-title">Audience &amp; Personas</h1>
       <p class="panel-subtitle">Know your audience deeply — who they are, what they want, where they are</p>
       <div class="panel-header-actions">
         <button class="btn btn-primary btn-sm" id="add-persona-btn">+ New Persona</button>
@@ -306,7 +308,7 @@
     <div class="personas-grid" id="personas-grid"></div>
   </div>
 
-  <!-- ─────────────────────────────── AI PANEL (Part 7) -->
+  <!-- ─────────────────────────────────────── AI PANEL (Part 7) -->
   <div class="panel" id="ai-panel">
     <div class="panel-header">
       <h1 class="panel-title">AI Growth Assistant</h1>
@@ -342,7 +344,7 @@
           <span class="ai-action-icon">🔍</span>
           <div>
             <div class="ai-action-label">Analyse Campaign</div>
-            <div class="ai-action-sub">Performance insights & recommendations</div>
+            <div class="ai-action-sub">Performance insights &amp; recommendations</div>
           </div>
         </button>
         <button class="ai-action-btn" data-action="generate-persona">
@@ -383,7 +385,7 @@
     </div>
   </div>
 
-  <!-- ─────────────────────────────── INTEGRATIONS PANEL (Part 8) -->
+  <!-- ─────────────────────────────────────── INTEGRATIONS PANEL (Part 8) -->
   <div class="panel" id="integrations-panel">
     <div class="panel-header">
       <h1 class="panel-title">Hub Integrations</h1>
@@ -452,7 +454,7 @@
 
 </main>
 
-<!-- ═══════════════════════════════════════════════════════ MODALS -->
+<!-- ═══════════════════════════════════════════════════════════════ MODALS -->
 
 <!-- Add/Edit Priority -->
 <div class="modal-overlay" id="priority-modal" style="display:none;">
@@ -1097,7 +1099,7 @@
         <div class="field-group"><label class="field-label">Social</label><input class="field-input" id="m-cpl-social" type="number" step="0.01" placeholder="0"/></div>
         <div class="field-group"><label class="field-label">Email</label><input class="field-input" id="m-cpl-email" type="number" step="0.01" placeholder="0"/></div>
       </div>
-      <div class="modal-section-title">Revenue & Spend</div>
+      <div class="modal-section-title">Revenue &amp; Spend</div>
       <div class="field-row">
         <div class="field-group"><label class="field-label">Total Ad Spend ($)</label><input class="field-input" id="m-spend" type="number" placeholder="0"/></div>
         <div class="field-group"><label class="field-label">Revenue Attributed ($)</label><input class="field-input" id="m-revenue" type="number" placeholder="0"/></div>
@@ -1343,20 +1345,19 @@
   const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     window.location.href = '../login.html';
   } else {
     const { data: profile } = await supabase
       .from('users')
       .select('membership_status')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
 
     if (profile?.membership_status !== 'active') {
       window.location.href = '../inactive.html';
     } else {
-      // Expose for the rest of the app (sign-out + AI proxy auth)
       window.supabaseClient   = supabase;
       window.SUPABASE_URL     = SUPABASE_URL;
       window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
@@ -1364,6 +1365,7 @@
         await supabase.auth.signOut();
         window.location.href = '../login.html';
       };
+      document.body.style.opacity = '1';
       window.dispatchEvent(new Event('growth:auth-ready'));
     }
   }
@@ -1378,6 +1380,13 @@
 <script src="./js/content.js"></script>
 <script src="./js/metrics.js"></script>
 <script src="./js/ai.js"></script>
+
+<footer class="site-footer">
+  Strengths-Based Coaching and Counselling<br>
+  <a href="http://www.coach4u.com.au">www.coach4u.com.au</a> |
+  <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> |
+  0402 313 337
+</footer>
 
 <script>
   if ('serviceWorker' in navigator) {
