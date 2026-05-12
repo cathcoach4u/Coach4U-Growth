@@ -4,7 +4,6 @@
    Coach4U Design System v1.3
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ─── CSS Variables ─────────────────────────────────────────────────────── */
 :root {
   --primary:        #1B3664;
   --primary-dark:   #152952;
@@ -42,10 +41,8 @@
   --min-touch-h:    44px;
 }
 
-/* ─── Utility ───────────────────────────────────────────────────────────── */
 .hidden { display: none !important; }
 
-/* ─── Reset ─────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: var(--base-font-size); scroll-behavior: smooth; }
 body {
@@ -65,7 +62,6 @@ button { cursor: pointer; font-family: inherit; }
 input, textarea, select { font-family: inherit; }
 textarea { resize: vertical; }
 
-/* ─── Sign Out Button ────────────────────────────────────────────────────── */
 .sign-out-btn {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.45);
@@ -86,7 +82,6 @@ textarea { resize: vertical; }
   border-color: rgba(255,255,255,0.7);
 }
 
-/* ─── Header ─────────────────────────────────────────────────────────────── */
 .site-header {
   position: sticky;
   top: 0;
@@ -111,7 +106,6 @@ textarea { resize: vertical; }
 .brand-accent { color: var(--accent); }
 .brand-sub { font-size: 11px; color: rgba(255,255,255,0.55); font-weight: 400; margin-left: 2px; }
 
-/* ─── Navigation ─────────────────────────────────────────────────────────── */
 .main-nav {
   display: flex;
   gap: 2px;
@@ -138,7 +132,6 @@ textarea { resize: vertical; }
 .nav-tab:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .nav-tab.active { background: var(--accent); color: #fff; font-weight: 600; }
 
-/* ─── Vision / Mission Banners ───────────────────────────────────────────── */
 .vision-banner, .mission-banner {
   background: var(--primary-dark);
   border-bottom: 2px solid var(--accent);
@@ -196,10 +189,8 @@ textarea { resize: vertical; }
 }
 .vision-expand-btn:hover, .mission-expand-btn:hover { color: #fff; }
 
-/* ─── Main Content ───────────────────────────────────────────────────────── */
 .main-content { max-width: 1600px; margin: 0 auto; padding: var(--spacing-2xl); }
 
-/* ─── Panels ─────────────────────────────────────────────────────────────── */
 .panel { display: none; }
 .panel.active { display: block; }
 .panel-header {
@@ -213,7 +204,6 @@ textarea { resize: vertical; }
 .panel-subtitle { font-size: 13px; color: var(--text-muted); flex: 1; }
 .panel-header-actions { display: flex; gap: var(--spacing-sm); align-items: center; margin-left: auto; }
 
-/* ─── Cards ──────────────────────────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
@@ -240,7 +230,6 @@ textarea { resize: vertical; }
 .card-body { padding: var(--spacing-xl); }
 .card-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
 
-/* ─── Buttons ────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -286,7 +275,6 @@ textarea { resize: vertical; }
 .btn-sm { padding: 6px 12px; font-size: 12px; }
 .btn-icon { padding: 6px; min-width: 30px; justify-content: center; }
 
-/* ─── Forms ──────────────────────────────────────────────────────────────── */
 .field-group { display: flex; flex-direction: column; gap: 4px; }
 .field-group.flex-2 { flex: 2; }
 .field-row { display: flex; gap: var(--spacing-md); }
@@ -317,7 +305,6 @@ textarea { resize: vertical; }
 }
 .field-select-sm { padding: 6px 10px; font-size: 13px; width: auto; }
 
-/* ─── Modals ─────────────────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -377,7 +364,6 @@ textarea { resize: vertical; }
   flex-wrap: wrap;
 }
 
-/* ─── Toast ──────────────────────────────────────────────────────────────── */
 .toast {
   position: fixed;
   bottom: var(--spacing-2xl);
@@ -399,7 +385,6 @@ textarea { resize: vertical; }
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 
-/* ─── AI Coach Sidebar ───────────────────────────────────────────────────── */
 .ai-coach-sidebar { display: none; }
 .ai-coach-sidebar.visible {
   display: flex;
@@ -485,7 +470,6 @@ textarea { resize: vertical; }
 }
 .ai-coach-send:hover { background: var(--accent-dark); }
 
-/* ─── Utility Classes ────────────────────────────────────────────────────── */
 .mt-8  { margin-top: 8px !important; }
 .mt-12 { margin-top: 12px !important; }
 .mt-16 { margin-top: 16px !important; }
@@ -502,7 +486,6 @@ textarea { resize: vertical; }
 .flex-1 { flex: 1; }
 .nowrap { white-space: nowrap; }
 
-/* ─── VTO Section ────────────────────────────────────────────────────────── */
 .vto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .vto-section { margin: 0; }
 .vto-card-wide { grid-column: 1 / -1; }
@@ -516,7 +499,6 @@ textarea { resize: vertical; }
 .field-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 .mt-8 { margin-top: 8px; }
 
-/* ─── Group Overview ─────────────────────────────────────────────────────── */
 .go-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .go-title { font-size: 26px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; }
 .go-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
@@ -567,7 +549,6 @@ textarea { resize: vertical; }
 .go-biz-targets { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--text-muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); }
 .go-empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
 
-/* ─── Mobile (< 768px) ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root { --header-h: 56px; --base-font-size: 14px; }
   .header-inner { padding: 0 var(--spacing-lg); gap: var(--spacing-lg); }
@@ -593,7 +574,6 @@ textarea { resize: vertical; }
   .vision-text, .mission-value { white-space: normal; overflow: visible; text-overflow: clip; }
 }
 
-/* ─── Extra Small (< 390px) ──────────────────────────────────────────────── */
 @media (max-width: 390px) {
   .header-inner { padding: 0 var(--spacing-md); gap: var(--spacing-md); }
   .brand-name { font-size: 16px; }
@@ -604,19 +584,16 @@ textarea { resize: vertical; }
   .card-body { padding: var(--spacing-lg); }
 }
 
-/* ─── Medium (768px–1100px) ──────────────────────────────────────────────── */
 @media (max-width: 1100px) and (min-width: 769px) {
   .strategy-grid, .charts-grid, .integrations-grid { grid-template-columns: 1fr; }
   .campaign-body-grid { grid-template-columns: 1fr; }
 }
 
-/* ─── Tablet (768px–1024px) ──────────────────────────────────────────────── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .header-inner { padding: 0 var(--spacing-xl); }
   .personas-grid { grid-template-columns: repeat(2,1fr); }
 }
 
-/* ─── Group Overview Responsive ─────────────────────────────────────────── */
 @media (max-width: 1000px) { .go-strategic-section { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) {
   .go-strategic-section { grid-template-columns: 1fr; }
@@ -624,7 +601,6 @@ textarea { resize: vertical; }
   .go-header { flex-direction: column; }
 }
 
-/* ─── Print ──────────────────────────────────────────────────────────────── */
 @media print {
   .site-header, .vision-banner, .mission-banner, .panel-header-actions,
   .btn, .card-actions, .campaign-card-actions, .priority-actions,
@@ -634,3 +610,15 @@ textarea { resize: vertical; }
   .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
   body { background: white; }
 }
+
+/* ─── Site Footer ────────────────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 24px 20px 32px;
+  border-top: 1px solid var(--border-light);
+  line-height: 1.8;
+}
+.site-footer a { color: var(--secondary); }
+.site-footer a:hover { color: var(--accent-dark); text-decoration: underline; }
