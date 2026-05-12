@@ -8,44 +8,66 @@
 
 ## Project Overview
 - The Growth Hub — a focused growth-marketing PWA (strategy, quarterly priorities, campaigns, content, metrics, personas, AI assistant, integrations)
-- Hosted on GitHub Pages at https://cathcoach4u.github.io/Coach4U-Growth/ (project pages base path `/Coach4U-Growth/`)
+- Hosted on GitHub Pages at https://cathcoach4u.github.io/yourmarketingcoach/
 - Uses email + password sign-in via Supabase (no magic-link / OTP)
 - Membership-gated: every page checks `users.membership_status = 'active'` and routes inactive users to `inactive.html`
 
 ## Source-of-truth Setup Contract
 This project follows the Coach4U App Setup Guide. Key rules:
-- **Inline Supabase init in every HTML page.** Use `<script type="module">` with `import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'`. Do not import auth/data operations from an external config file — GitHub Pages does not reliably load external `.js` modules.
+- **Inline Supabase init in every HTML page.** Use `<script type="module">` with `import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'`. Do not import from an external config file.
 - **Auth = email + password** via `supabase.auth.signInWithPassword`. Magic-link / OTP flows are not used.
-- **Forgot-password redirect must be built from `window.location.href`**, not `window.location.origin`, so Supabase can match the allowed redirect URL.
+- **Forgot-password redirect must be built from `window.location.href`**, not `window.location.origin`.
 - **Membership gate**: after auth, query `users.membership_status` and redirect to `inactive.html` if not `'active'`.
 
 ## Supabase
 - Project URL: `https://eekefsuaefgpqmjdyniy.supabase.co`
 - Anon key (publishable): `sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y`
-- Required allowed redirect URLs (Supabase dashboard → Authentication → URL Configuration):
-  - `https://cathcoach4u.github.io/Coach4U-Growth/index.html`
-  - `https://cathcoach4u.github.io/Coach4U-Growth/reset-password.html`
+- Import always unversioned: `import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'`
 
-## Design System
+## Design System (v2.2)
 - Primary (navy): `#003366`
-- Accent (blue-teal): `#0D9488` — buttons, active borders, links
-- Accent dark (hover): `#0F766E` — hover states
-- Card borders: 2px solid, 12px border-radius
-- Font: Aptos system stack
+- Accent (teal): `#0D9488` — buttons, active borders, links
+- Accent dark (hover): `#0F766E`
+- Background: `#ffffff`
+- Text: `#333333`
+- Font: Aptos system stack — **no Google Fonts**
 - Touch targets: 44px minimum height on mobile
-- Links: blue-teal (`#0D9488`), not navy or green
-- IMPORTANT: Do NOT use green-teal (`#00B894`, `#1D9E75`) — use `#0D9488` instead
+- Card border-radius: 12px
+
+## Login Page Standard (Gold Standard v2.2)
+
+All auth pages (`login.html`, `forgot-password.html`, `reset-password.html`) use gold standard:
+- No inline `<style>` blocks
+- No Google Fonts
+- `css/style.css` handles all login styling
+- Post-login redirect: `growth/index.html`
+
+Required `<head>` structure:
+```html
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#003366">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Your Marketing Coach">
+<link rel="stylesheet" href="css/style.css">
+```
+
+Service worker registration on login page:
+```html
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+```
 
 ## Key Files
-- `index.html` — auth gateway (session + membership routing)
-- `login.html` — email + password sign-in
+- `login.html` — gold standard email + password sign-in
 - `forgot-password.html` / `reset-password.html` — password reset flow
 - `inactive.html` — membership-not-active landing
 - `growth/index.html` — the Growth Hub application (inlines its own Supabase client + membership gate)
 - `growth/css/style.css` — Growth Hub specific styles
 - `growth/js/app.js`, `strategy.js`, `quarterly.js`, `campaigns.js`, `content.js`, `metrics.js`, `ai.js` — Growth Hub modules
-- `js/ai.js` — `askAI` / `askAISimple` wrappers around the Supabase Edge Function (reads `window.SUPABASE_URL` / `window.SUPABASE_ANON_KEY` set inline by the host page)
-- `css/style.css` — shared design tokens
+- `js/ai.js` — `askAI` / `askAISimple` wrappers around the Supabase Edge Function
+- `css/style.css` — shared design tokens (v2.2)
 - `sw.js`, `manifest.json`, `offline.html`, `404.html` — PWA shell
 
 ## Adding a Member
@@ -58,21 +80,15 @@ WHERE LOWER(email) = LOWER('email@here.com');
 ```
 
 ## Current Version
-v0.7.0
+v0.8.0
 
-## Recent Changes (v0.7.0)
-- Aligned to the Coach4U App Setup Guide (source-of-truth)
-- Switched Supabase project to `eekefsuaefgpqmjdyniy` with publishable anon key
-- Replaced magic-link auth with email + password (`supabase.auth.signInWithPassword`)
-- Added `login.html`, `forgot-password.html`, `reset-password.html`, `inactive.html`
-- Made root `index.html` an auth gateway (session check + membership gate)
-- Inlined Supabase init in every HTML page; deleted `js/supabase.js` and `js/auth.js`
-- Updated `js/ai.js` to read Supabase URL/key from window globals set by the host page; new edge-function URL points at the new project
-- Simplified `sw.js` to a relative-path cache-first worker; cache `coach4u-growth-v0.7.0`
-- Aligned `manifest.json` (relative paths, theme/background `#003366`, scope `./`, start_url `index.html`)
+## Recent Changes (v0.8.0)
+- Standardised `login.html`, `forgot-password.html`, `reset-password.html` to gold standard (no Google Fonts, no inline styles, PWA meta)
+- Upgraded `css/style.css` to v2.2 design system (`#003366` navy, `#0D9488` teal, Aptos font, white background)
+- Fixed post-login redirect to `growth/index.html`
+- Unpinned Supabase import (was `@2.x`, now unversioned)
 
-## Outstanding Tasks
-1. Add the two redirect URLs to the Supabase project's allowed redirect list
-2. Create the `users` table per the schema in the setup guide and add yourself with `membership_status = 'active'`
-3. Smoke-test sign-in → gateway → growth, plus inactive flow and the password-reset round-trip
-4. (Optional) Generate proper PNG icons (`icons/icon-192.png`, `icons/icon-512.png`) and reference them in `manifest.json`
+## Current Status
+- **Growth Hub**: WORKING — strategy, Q-plan, campaigns, content, metrics
+- **Login**: Gold standard v2.2
+- **PWA**: Service worker + manifest active
