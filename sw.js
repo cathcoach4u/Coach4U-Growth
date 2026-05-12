@@ -1,4 +1,4 @@
-const CACHE = 'coach4u-growth-v0.7.0';
+const CACHE = 'coach4u-growth-v0.8.0';
 const ASSETS = [
   './',
   'index.html',
