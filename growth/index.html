@@ -12,6 +12,7 @@
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="apple-touch-icon" href="../images/logo.svg">
   <link rel="stylesheet" href="../css/style.css" />
+  <style>body { opacity: 0; transition: opacity 0.2s ease; }</style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -1343,14 +1344,14 @@
   const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     window.location.href = '../login.html';
   } else {
     const { data: profile } = await supabase
       .from('users')
       .select('membership_status')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
 
     if (profile?.membership_status !== 'active') {
@@ -1364,6 +1365,7 @@
         await supabase.auth.signOut();
         window.location.href = '../login.html';
       };
+      document.body.style.opacity = '1';
       window.dispatchEvent(new Event('growth:auth-ready'));
     }
   }
